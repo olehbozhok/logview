@@ -64,7 +64,7 @@
         </div>
     </nav>
 
-    <main role="main" class="container">
+    <main role="main" class="container main" style="margin-top:65px;">
 
         <!-- <div class="starter-template">
             <h1>Bootstrap starter template</h1>
@@ -72,20 +72,14 @@
                 and a mostly barebones HTML document.</p>
         </div> -->
         {{range $i, $el := .ResultStrs}}
-        <div>{{$el}}</div>
+        <div>{{printf "%s\n" $el}}</div>
         {{else}} Empty {{end}}
         <span class="border"></span>
 
 
 
     </main><!-- /.container -->
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="/docs/4.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
-        crossorigin="anonymous"></script> -->
+
 </body>
 
 </html>

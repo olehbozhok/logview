@@ -3,10 +3,12 @@ package main
 import (
 	"bufio"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 	"strings"
 	"text/template"
+	"unsafe"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gobuffalo/packr/v2"
@@ -80,14 +82,43 @@ func readLinesFillter(filepath string, filter []string) (res []string, err error
 	scanner.Buffer(buf, 10*1024*1024)
 	scanner.Split(bufio.ScanLines)
 
+LOOP:
 	for scanner.Scan() {
 		text := scanner.Text()
 		for _, f := range clarifFilrer {
+			fmt.Println("11")
 			if !strings.Contains(text, f) {
-				continue
+				continue LOOP
 			}
-			res = append(res, text)
 		}
+		text = lineToPrettyJSON(text)
+		text = strings.ReplaceAll(text, "\n", "<br>")
+		res = append(res, text)
 	}
 	return res, nil
+}
+
+func lineToPrettyJSON(s string) string {
+	kv := make(map[string]interface{})
+	err := json.Unmarshal([]byte(s), &kv)
+	if err != nil {
+		// this is not json
+		return s
+	}
+
+	for k, v := range kv {
+		if vString, ok := v.(string); ok {
+			kv[k] = lineToPrettyJSON(vString)
+		}
+	}
+
+	b, err := json.MarshalIndent(kv, "", "  ")
+	if err != nil {
+		panic(err)
+	}
+	return byteSlice2String(b)
+}
+
+func byteSlice2String(bs []byte) string {
+	return *(*string)(unsafe.Pointer(&bs))
 }
