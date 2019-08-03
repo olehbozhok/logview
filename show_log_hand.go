@@ -112,7 +112,7 @@ func lineToPrettyJSON(s string) string {
 		}
 	}
 
-	b, err := json.MarshalIndent(kv, "", "  ")
+	b, err := json.MarshalIndent(kv, "", "&nbsp;&nbsp;&nbsp;")
 	if err != nil {
 		panic(err)
 	}
