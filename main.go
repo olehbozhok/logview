@@ -1,8 +1,6 @@
 package main
 
 import (
-	"text/template"
-
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 
@@ -30,21 +28,6 @@ func main() {
 
 	r.GET("/show", showLog(box))
 
-	r.GET("/show_old", func(c *gin.Context) {
-		type Inventory struct {
-			Material string
-			Count    uint
-		}
-		sweaters := Inventory{"wool", 17}
-		tmpl, err := template.New("test").Parse("{{.Count}} items are made of {{.Material}}")
-		if err != nil {
-			panic(err)
-		}
-		err = tmpl.Execute(c.Writer, sweaters)
-		if err != nil {
-			panic(err)
-		}
-	})
 	r.Use(static.Serve("/static", &ServeFileSystem{box}))
 
 	// Listen and Server in 0.0.0.0:8080
