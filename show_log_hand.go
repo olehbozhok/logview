@@ -107,16 +107,30 @@ func lineToPrettyJSON(s string) string {
 	}
 
 	for k, v := range kv {
-		if vString, ok := v.(string); ok {
-			kv[k] = lineToPrettyJSON(vString)
-		}
+		kv[k] = lineToInterface(v)
 	}
-
-	b, err := json.MarshalIndent(kv, "", "&nbsp;&nbsp;&nbsp;")
+	b, err := json.MarshalIndent(kv, "", "&nbsp;&nbsp;")
 	if err != nil {
 		panic(err)
 	}
-	return byteSlice2String(b)
+	st := byteSlice2String(b)
+	return st
+}
+
+func lineToInterface(i interface{}) interface{} {
+	vString, ok := i.(string)
+	if !ok {
+		return i
+	}
+	kv := make(map[string]interface{})
+	err := json.Unmarshal([]byte(vString), &kv)
+	if err != nil {
+		return i
+	}
+	for k, v := range kv {
+		kv[k] = lineToInterface(v)
+	}
+	return kv
 }
 
 func byteSlice2String(bs []byte) string {
