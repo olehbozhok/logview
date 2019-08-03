@@ -35,3 +35,7 @@ body {
 .browser-widget li.directory {
     width: 60px;
 }
+
+.resultView {
+    border: 1px solid black;
+}

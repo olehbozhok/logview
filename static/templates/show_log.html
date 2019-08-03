@@ -12,9 +12,14 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/starter-template/">
 
     <!-- Bootstrap core CSS -->
-    <link href="https://getbootstrap.com/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/jquery-ui.css" rel="stylesheet">
+    <link href="/static/css/jquery.filebrowser.min.css" rel="stylesheet">
 
+    <link href="/static/css/base.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/jquery.jsonview.css" rel="stylesheet">
 
     <style>
         .bd-placeholder-img {
@@ -37,9 +42,12 @@
     <script src="/static/js/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
     <script src="/static/js/jquery-ui.min.js" crossorigin="anonymous"></script>
     <script src="/static/js/jquery.filebrowser.min.js" crossorigin="anonymous"></script>
+    <!-- <script src="/static/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script> -->
+    <script src="/static/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
     <script src="/static/js/filter_utils.js" crossorigin="anonymous"></script>
-    <!-- <script src="/static/js/file_browser.js" crossorigin="anonymous"></script> -->
+    <script src="/static/js/jquery.jsonview.js" crossorigin="anonymous"></script>
+    <script src="/static/js/show_log.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -66,19 +74,34 @@
 
     <main role="main" class="container main" style="margin-top:65px;">
 
-        <!-- <div class="starter-template">
-            <h1>Bootstrap starter template</h1>
-            <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text
-                and a mostly barebones HTML document.</p>
-        </div> -->
         {{range $i, $el := .ResultStrs}}
-        <div>{{printf "%s\n" $el}}</div>
+        <div class="resultView" onclick="showModalLog(this)">
+            {{$i}} {{printf "%s\n" $el}}</div>
         {{else}} Empty {{end}}
-        <span class="border"></span>
+        <span class=" border"></span>
 
 
 
     </main><!-- /.container -->
+
+    <div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="myModalContent">
+                <h2>Data</h2>
+                <!-- <button id="collapse-btn">Collapse</button>
+                <button id="expand-btn">Expand</button>
+                <button id="toggle-btn">Toggle</button>
+                <button id="toggle-level1-btn">Toggle level1</button>
+                <button id="toggle-level2-btn">Toggle level2</button> -->
+                <div id="json"></div>
+                <!-- <h2>Data Collapsed</h2>
+                <div id="json-collapsed"></div> -->
+            </div>
+
+        </div>
+    </div>
+
 
 </body>
 
