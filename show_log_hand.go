@@ -109,8 +109,8 @@ func lineToPrettyJSON(s string) string {
 	for k, v := range kv {
 		kv[k] = lineToInterface(v)
 	}
-	// b, err := json.MarshalIndent(kv, "", "&nbsp;&nbsp;")
-	b, err := json.MarshalIndent(kv, "", "   ")
+	b, err := json.MarshalIndent(kv, "", "&nbsp;&nbsp;")
+	// b, err := json.MarshalIndent(kv, "", "   ")
 	if err != nil {
 		panic(err)
 	}
