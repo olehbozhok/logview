@@ -2,6 +2,8 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
+	"os"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -39,5 +41,8 @@ func main() {
 		panic(err)
 	}
 	log.WithField("st", st).Info("Unmarshaled to struct")
+
+	log.Info(` <input type="reset" value="Очистить"></p>`)
+	fmt.Fprint(os.Stderr, `<input type="reset" value="Очистить"></p>`)
 
 }

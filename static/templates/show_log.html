@@ -76,7 +76,10 @@
 
         {{range $i, $el := .ResultStrs}}
         <div class="resultView" onclick="showModalLog(this)">
-            {{$i}} {{printf "%s\n" $el}}</div>
+            {{$i}}<br>
+            {{range $el2 := Split $el "\n"}}
+            {{$el2|html}}<br>
+            {{end}}</div>
         {{else}} Empty {{end}}
         <span class=" border"></span>
 

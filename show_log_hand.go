@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -26,7 +25,10 @@ func showLog(box *packr.Box) func(*gin.Context) {
 	if err != nil {
 		panic(err)
 	}
-	tmpl, err := template.New("show_log").Parse(s)
+	tmpl, err := template.New("show_log").Funcs(template.FuncMap(map[string]interface{}{
+		"Split": strings.Split,
+	})).Parse(s)
+
 	if err != nil {
 		panic(err)
 	}
@@ -86,13 +88,13 @@ LOOP:
 	for scanner.Scan() {
 		text := scanner.Text()
 		for _, f := range clarifFilrer {
-			fmt.Println("11")
 			if !strings.Contains(text, f) {
 				continue LOOP
 			}
 		}
 		text = lineToPrettyJSON(text)
-		text = strings.ReplaceAll(text, "\n", "<br>")
+		// text = strings.ReplaceAll(text, "\n", "<br>")
+		// text = html.EscapeString(text)
 		res = append(res, text)
 	}
 	return res, nil
@@ -109,8 +111,8 @@ func lineToPrettyJSON(s string) string {
 	for k, v := range kv {
 		kv[k] = lineToInterface(v)
 	}
-	b, err := json.MarshalIndent(kv, "", "&nbsp;&nbsp;")
-	// b, err := json.MarshalIndent(kv, "", "   ")
+	// b, err := json.MarshalIndent(kv, "", "&nbsp;&nbsp;&nbsp;&nbsp;")
+	b, err := json.MarshalIndent(kv, "", "      ")
 	if err != nil {
 		panic(err)
 	}
