@@ -28,7 +28,7 @@ func main() {
 
 	r.GET("/show", showLog(box))
 
-	r.Use(static.Serve("/static", &ServeFileSystem{box}))
+	r.Use(static.Serve("/static/", &ServeFileSystem{box}))
 
 	// Listen and Server in 0.0.0.0:8080
 	r.Run(":8000")

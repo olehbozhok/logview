@@ -1,3 +1,3 @@
 
 packr2
-go run .
+go build .
