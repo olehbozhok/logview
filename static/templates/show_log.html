@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>Starter Template · Bootstrap</title>
+    <title>Log View</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/starter-template/">
 
@@ -53,7 +53,7 @@
 
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="/">Log View</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -62,7 +62,7 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">Home <span class="sr-only">/</span></a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -83,7 +83,7 @@
             {{$el2 := ReplaceAll $el2 "\\t" "&nbsp;&nbsp;&nbsp;&nbsp;"}}
             {{$el2 := ReplaceAll $el2 "\\u003c" "&lt;"}}
             {{$el2 := ReplaceAll $el2 "\\u003e" "&gt;"}}
-            
+
             <br>
             {{$el2}}
 
