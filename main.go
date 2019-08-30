@@ -24,7 +24,7 @@ func main() {
 	r.GET("file_list", filesList)
 
 	r.GET("/", func(c *gin.Context) {
-		b, err := box.Find("./templates/base.html")
+		b, err := box.Find("templates/base.html")
 		if err != nil {
 			c.Writer.Write([]byte(err.Error()))
 		}
