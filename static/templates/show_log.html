@@ -78,7 +78,15 @@
         <div class="resultView" onclick="showModalLog(this)">
             {{$i}}<br>
             {{range $el2 := Split $el "\n"}}
-            {{$el2|html}}<br>
+            {{$el2 := html $el2}}
+            {{$el2 := ReplaceAll $el2 "\\n" "<br>"}}
+            {{$el2 := ReplaceAll $el2 "\\t" "&nbsp;&nbsp;&nbsp;&nbsp;"}}
+            {{$el2 := ReplaceAll $el2 "\\u003c" "&lt;"}}
+            {{$el2 := ReplaceAll $el2 "\\u003e" "&gt;"}}
+            
+            <br>
+            {{$el2}}
+
             {{end}}</div>
         {{else}} Empty {{end}}
         <span class=" border"></span>

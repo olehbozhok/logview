@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"encoding/json"
+	"html"
 	"net/http"
 	"os"
 	"strings"
@@ -26,7 +27,8 @@ func showLog(box *packr.Box) func(*gin.Context) {
 		panic(err)
 	}
 	tmpl, err := template.New("show_log").Funcs(template.FuncMap(map[string]interface{}{
-		"Split": strings.Split,
+		"Split":      strings.Split,
+		"ReplaceAll": strings.ReplaceAll,
 	})).Parse(s)
 
 	if err != nil {
@@ -93,8 +95,8 @@ LOOP:
 			}
 		}
 		text = lineToPrettyJSON(text)
-		// text = strings.ReplaceAll(text, "\n", "<br>")
-		// text = html.EscapeString(text)
+		text = html.UnescapeString(text)
+
 		res = append(res, text)
 	}
 	return res, nil
