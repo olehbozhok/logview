@@ -1,13 +1,18 @@
 package main
 
 import (
+	"flag"
+
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 
 	"github.com/gobuffalo/packr/v2"
 )
 
+var hostAddr = flag.String("host", ":8000", "host addr")
+
 func main() {
+	flag.Parse()
 
 	box := packr.New("static", "static")
 
@@ -30,6 +35,5 @@ func main() {
 
 	r.Use(static.Serve("/static/", &ServeFileSystem{box}))
 
-	// Listen and Server in 0.0.0.0:8080
-	r.Run(":8000")
+	r.Run(*hostAddr)
 }
